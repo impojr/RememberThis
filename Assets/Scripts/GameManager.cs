@@ -22,15 +22,18 @@ public class GameManager : MonoBehaviour
     public Color unpressedColor;
     public Color pressedColor;
 
-    public PlayableDirector wave1Arrows;
-    public PlayableDirector wave2Arrows;
-    public PlayableDirector wave3Arrows;
-    public PlayableDirector wave4Arrows;
+    public PlayableDirector introTimeline;
+    public PlayableDirector[] waveTimelines;
+    public PlayableDirector[] outroTimelines;
+
+    public Image[] healthUIs;
 
     private bool recieveInput = false;
     private int numberOfButtonsToPress = 0;
     private List<KeyCode> buttonsPressed;
     private int currentWave = 1;
+    private int health = 5;
+    private int movementNumber = 0;
 
     void Start()
     {
@@ -122,43 +125,67 @@ public class GameManager : MonoBehaviour
     {
         recieveInput = true;
         float time = seconds;
+        float timeIntervalForTimerFillAmount = 0.01f;
 
         while (time > 0)
         {
-            yield return new WaitForSeconds(0.01f); // change to variable
-            time -= 0.01f;
+            yield return new WaitForSeconds(timeIntervalForTimerFillAmount); 
+            time -= timeIntervalForTimerFillAmount;
             timerImage.fillAmount = time / seconds;
         }
         recieveInput = false;
         HidePressedIndicators();
         chalkboardText.gameObject.SetActive(false);
         timerImage.gameObject.SetActive(false);
-        Debug.Log(buttonsPressed.Count);
-
-        for (int i = 0; i < numberOfButtonsToPress; i++)
-        {
-            Debug.Log("Pressed: " + (arrows[i].arrowKey == buttonsPressed[i]));
-        }
-
-        //end timeline start
+        ShowOutroTimeline();
     }
 
     public void ShowArrows()
     {
-        if (currentWave == 1)
+        waveTimelines[currentWave - 1].Play();
+    }
+
+    public void ShowOutroTimeline()
+    {
+        outroTimelines[currentWave - 1].Play();
+        currentWave++;
+    }
+
+    public void TriggerMovementAnimation()
+    {
+        //todo trigger animation
+
+        //todo make sure you cater for no button presses
+
+        if (arrows[movementNumber].arrowKey != buttonsPressed[movementNumber])
         {
-            wave1Arrows.Play();
-        } else if (currentWave == 2)
-        {
-            wave2Arrows.Play();
-        } else if (currentWave == 3)
-        {
-            wave3Arrows.Play();
-        } else if (currentWave == 4)
-        {
-            wave4Arrows.Play();
+            ReduceHealth();
         }
 
-        currentWave++;
+        movementNumber++;
+    }
+
+    private void ReduceHealth()
+    {
+        if (health <= 0)
+            return;
+
+        health--;
+        healthUIs[health].color = new Color(255,255,255,0);
+    }
+
+    public void ResetMovementNumberAndStartNextWave()
+    {
+        //if (health <= 0)
+        //{
+            //todo lose screen
+        /*} else */ if (currentWave > 4)
+        {
+            //todo win screen
+        } else
+        {
+            movementNumber = 0;
+            introTimeline.Play();
+        }
     }
 }
