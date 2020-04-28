@@ -133,6 +133,7 @@ public class GameManager : MonoBehaviour
             time -= timeIntervalForTimerFillAmount;
             timerImage.fillAmount = time / seconds;
         }
+
         recieveInput = false;
         HidePressedIndicators();
         chalkboardText.gameObject.SetActive(false);
@@ -151,11 +152,22 @@ public class GameManager : MonoBehaviour
         currentWave++;
     }
 
+    public void HideArrows()
+    {
+        foreach(Arrow arrow in arrows)
+        {
+            arrow.gameObject.SetActive(false);
+        }
+    }
+
     public void TriggerMovementAnimation()
     {
         //todo trigger animation
 
         //todo make sure you cater for no button presses
+
+        //todo show canvas element based on movement number
+        arrows[movementNumber].gameObject.SetActive(true);
 
         if (arrows[movementNumber].arrowKey != buttonsPressed[movementNumber])
         {
