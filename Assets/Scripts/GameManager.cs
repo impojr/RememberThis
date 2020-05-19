@@ -28,6 +28,16 @@ public class GameManager : MonoBehaviour
 
     public Image[] healthUIs;
 
+    public Animator playerAnimator;
+    public Animator teacherAnimator;
+
+    private static string PLAYER_IDLE_ANIM = "Idle";
+    private static string PLAYER_THINKING_ANIM = "Thinking";
+    private static string PLAYER_UP_ANIM = "Up";
+    private static string PLAYER_DOWN_ANIM = "Down";
+    private static string PLAYER_LEFT_ANIM = "Left";
+    private static string PLAYER_RIGHT_ANIM = "Right";
+
     private bool recieveInput = false;
     private int numberOfButtonsToPress = 0;
     private List<KeyCode> buttonsPressed;
@@ -88,6 +98,8 @@ public class GameManager : MonoBehaviour
         if (buttons < 0 || buttons > arrows.Length)
             throw new ArgumentOutOfRangeException(nameof(buttons) + " must be within length of " + nameof(arrows));
 
+        playerAnimator.SetTrigger(PLAYER_THINKING_ANIM);
+
         numberOfButtonsToPress = buttons;
         buttonsPressed = new List<KeyCode>();
         chalkboardText.gameObject.SetActive(true);
@@ -134,6 +146,7 @@ public class GameManager : MonoBehaviour
             timerImage.fillAmount = time / seconds;
         }
 
+        playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
         recieveInput = false;
         HidePressedIndicators();
         chalkboardText.gameObject.SetActive(false);
@@ -162,14 +175,11 @@ public class GameManager : MonoBehaviour
 
     public void TriggerMovementAnimation()
     {
-        //todo trigger animation
+        TriggerPlayerMovementAnimation();
 
-        //todo make sure you cater for no button presses
-
-        //todo show canvas element based on movement number
         arrows[movementNumber].gameObject.SetActive(true);
 
-        if (arrows[movementNumber].arrowKey != buttonsPressed[movementNumber])
+        if (movementNumber >= buttonsPressed.Count || (arrows[movementNumber].arrowKey != buttonsPressed[movementNumber]))
         {
             ReduceHealth();
         }
@@ -188,6 +198,8 @@ public class GameManager : MonoBehaviour
 
     public void ResetMovementNumberAndStartNextWave()
     {
+        playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
+
         //if (health <= 0)
         //{
             //todo lose screen
@@ -198,6 +210,26 @@ public class GameManager : MonoBehaviour
         {
             movementNumber = 0;
             introTimeline.Play();
+        }
+    }
+
+    public void TriggerPlayerMovementAnimation()
+    {
+        if (movementNumber >= buttonsPressed.Count)
+        {
+            playerAnimator.SetTrigger(PLAYER_THINKING_ANIM);
+        } else if (buttonsPressed[movementNumber] == KeyCode.UpArrow)
+        {
+            playerAnimator.SetTrigger(PLAYER_UP_ANIM);
+        } else if (buttonsPressed[movementNumber] == KeyCode.DownArrow)
+        {
+            playerAnimator.SetTrigger(PLAYER_DOWN_ANIM);
+        } else if (buttonsPressed[movementNumber] == KeyCode.RightArrow)
+        {
+            playerAnimator.SetTrigger(PLAYER_RIGHT_ANIM);
+        } else if (buttonsPressed[movementNumber] == KeyCode.LeftArrow)
+        {
+            playerAnimator.SetTrigger(PLAYER_LEFT_ANIM);
         }
     }
 }
