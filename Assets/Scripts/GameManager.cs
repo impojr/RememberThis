@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     private static string PLAYER_DOWN_ANIM = "Down";
     private static string PLAYER_LEFT_ANIM = "Left";
     private static string PLAYER_RIGHT_ANIM = "Right";
+    private static string PLAYER_WIN_ANIM = "Win";
+    private static string PLAYER_LOSE_ANIM = "Lose";
 
     private bool recieveInput = false;
     private int numberOfButtonsToPress = 0;
@@ -198,16 +200,17 @@ public class GameManager : MonoBehaviour
 
     public void ResetMovementNumberAndStartNextWave()
     {
-        playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
-
-        //if (health <= 0)
-        //{
+        if (health <= 0)
+        {
             //todo lose screen
-        /*} else */ if (currentWave > 4)
+            playerAnimator.SetTrigger(PLAYER_LOSE_ANIM);
+        } else if (currentWave > 4)
         {
             //todo win screen
+            playerAnimator.SetTrigger(PLAYER_WIN_ANIM);
         } else
         {
+            playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
             movementNumber = 0;
             introTimeline.Play();
         }
