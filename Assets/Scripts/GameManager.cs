@@ -40,6 +40,11 @@ public class GameManager : MonoBehaviour
     private static string PLAYER_WIN_ANIM = "Win";
     private static string PLAYER_LOSE_ANIM = "Lose";
 
+    private static string TEACHER_IDLE_ANIM = "Idle";
+    private static string TEACHER_THINKING_ANIM = "Thinking";
+    private static string TEACHER_WIN_ANIM = "Win";
+    private static string TEACHER_LOSE_ANIM = "Lose";
+
     private bool recieveInput = false;
     private int numberOfButtonsToPress = 0;
     private List<KeyCode> buttonsPressed;
@@ -100,6 +105,7 @@ public class GameManager : MonoBehaviour
         if (buttons < 0 || buttons > arrows.Length)
             throw new ArgumentOutOfRangeException(nameof(buttons) + " must be within length of " + nameof(arrows));
 
+        teacherAnimator.SetTrigger(TEACHER_THINKING_ANIM);
         playerAnimator.SetTrigger(PLAYER_THINKING_ANIM);
 
         numberOfButtonsToPress = buttons;
@@ -149,6 +155,7 @@ public class GameManager : MonoBehaviour
         }
 
         playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
+        teacherAnimator.SetTrigger(TEACHER_IDLE_ANIM);
         recieveInput = false;
         HidePressedIndicators();
         chalkboardText.gameObject.SetActive(false);

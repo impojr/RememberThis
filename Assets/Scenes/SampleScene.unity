@@ -605,6 +605,8 @@ PlayableDirector:
     value: {fileID: 1606186555}
   - key: {fileID: 0}
     value: {fileID: 247175605}
+  - key: {fileID: -2154937050194400728, guid: 9da63f29a2c51de4292a3d530f1e8191, type: 2}
+    value: {fileID: 231619127}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &191788351
@@ -653,6 +655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231619125}
   - component: {fileID: 231619126}
+  - component: {fileID: 231619127}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -722,6 +725,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &231619127
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231619124}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fce944dfbc623274ab28dbcde0f6305b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &239721602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,7 +1259,7 @@ MonoBehaviour:
   - {fileID: 1922673772}
   - {fileID: 1940983046}
   playerAnimator: {fileID: 811188199}
-  teacherAnimator: {fileID: 0}
+  teacherAnimator: {fileID: 231619127}
 --- !u!4 &300894708
 Transform:
   m_ObjectHideFlags: 0
