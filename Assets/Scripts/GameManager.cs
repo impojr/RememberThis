@@ -147,11 +147,16 @@ public class GameManager : MonoBehaviour
         float time = seconds;
         float timeIntervalForTimerFillAmount = 0.01f;
 
-        while (time > 0)
+        while (time > 0 && buttonsPressed.Count < numberOfButtonsToPress)
         {
             yield return new WaitForSeconds(timeIntervalForTimerFillAmount); 
             time -= timeIntervalForTimerFillAmount;
             timerImage.fillAmount = time / seconds;
+        }
+
+        if (buttonsPressed.Count < numberOfButtonsToPress)
+        {
+            yield return new WaitForSeconds(2f);
         }
 
         playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
@@ -211,10 +216,12 @@ public class GameManager : MonoBehaviour
         {
             //todo lose screen
             playerAnimator.SetTrigger(PLAYER_LOSE_ANIM);
+            teacherAnimator.SetTrigger(TEACHER_LOSE_ANIM);
         } else if (currentWave > outroTimelines.Length)
         {
             //todo win screen
             playerAnimator.SetTrigger(PLAYER_WIN_ANIM);
+            teacherAnimator.SetTrigger(TEACHER_WIN_ANIM);
         } else
         {
             playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
