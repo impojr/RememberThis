@@ -40,22 +40,6 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
---- !u!114 &-5608043345186129755
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
-  m_Name: Signal Emitter
-  m_EditorClassIdentifier: 
-  m_Time: 4
-  m_Retroactive: 0
-  m_EmitOnce: 0
-  m_Asset: {fileID: 11400000, guid: 20a83a6ff65d8404e89fb1a7e6abf017, type: 2}
 --- !u!114 &-582043838919506140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -92,22 +76,6 @@ MonoBehaviour:
     m_Framerate: 60
   m_DurationMode: 0
   m_MarkerTrack: {fileID: 5487872501443222177}
---- !u!114 &747826491117521246
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
-  m_Name: Signal Emitter
-  m_EditorClassIdentifier: 
-  m_Time: 3.5
-  m_Retroactive: 0
-  m_EmitOnce: 0
-  m_Asset: {fileID: 11400000, guid: 20a83a6ff65d8404e89fb1a7e6abf017, type: 2}
 --- !u!114 &1264295539841407525
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: 
-  m_Time: 6
+  m_Time: 5
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: f17a5df3f6e90ce428d49f708e806c11, type: 2}
@@ -169,8 +137,6 @@ MonoBehaviour:
     - {fileID: -582043838919506140}
     - {fileID: 1264295539841407525}
     - {fileID: 6866503311767020747}
-    - {fileID: 747826491117521246}
-    - {fileID: -5608043345186129755}
     - {fileID: 4267073353927691432}
 --- !u!114 &6866503311767020747
 MonoBehaviour:

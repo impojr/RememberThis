@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
         {
             //todo lose screen
             playerAnimator.SetTrigger(PLAYER_LOSE_ANIM);
-        } else if (currentWave > 4)
+        } else if (currentWave > outroTimelines.Length)
         {
             //todo win screen
             playerAnimator.SetTrigger(PLAYER_WIN_ANIM);
