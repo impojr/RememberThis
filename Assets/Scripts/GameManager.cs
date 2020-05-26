@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
     public Animator playerAnimator;
     public Animator teacherAnimator;
 
+    public AudioSource correctMoveAudioSource;
+    public AudioSource resultAudioSource;
+
+    public AudioClip loseSound;
+    public AudioClip winSound;
+
     private static string PLAYER_IDLE_ANIM = "Idle";
     private static string PLAYER_THINKING_ANIM = "Thinking";
     private static string PLAYER_UP_ANIM = "Up";
@@ -196,6 +202,9 @@ public class GameManager : MonoBehaviour
         if (movementNumber >= buttonsPressed.Count || (arrows[movementNumber].arrowKey != buttonsPressed[movementNumber]))
         {
             ReduceHealth();
+        } else
+        {
+            correctMoveAudioSource.Play();
         }
 
         movementNumber++;
@@ -217,11 +226,13 @@ public class GameManager : MonoBehaviour
             //todo lose screen
             playerAnimator.SetTrigger(PLAYER_LOSE_ANIM);
             teacherAnimator.SetTrigger(TEACHER_LOSE_ANIM);
+            resultAudioSource.PlayOneShot(loseSound);
         } else if (currentWave > outroTimelines.Length)
         {
             //todo win screen
             playerAnimator.SetTrigger(PLAYER_WIN_ANIM);
             teacherAnimator.SetTrigger(TEACHER_WIN_ANIM);
+            resultAudioSource.PlayOneShot(winSound);
         } else
         {
             playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
