@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     public AudioClip loseSound;
     public AudioClip winSound;
 
+    public Text resultText;
+    public GameObject resultScreen;
+
     private static string PLAYER_IDLE_ANIM = "Idle";
     private static string PLAYER_THINKING_ANIM = "Thinking";
     private static string PLAYER_UP_ANIM = "Up";
@@ -223,13 +226,15 @@ public class GameManager : MonoBehaviour
     {
         if (health <= 0)
         {
-            //todo lose screen
+            resultText.text = "YOU LOSE!";
+            resultScreen.SetActive(true);
             playerAnimator.SetTrigger(PLAYER_LOSE_ANIM);
             teacherAnimator.SetTrigger(TEACHER_LOSE_ANIM);
             resultAudioSource.PlayOneShot(loseSound);
         } else if (currentWave > outroTimelines.Length)
         {
-            //todo win screen
+            resultText.text = "YOU WIN!";
+            resultScreen.SetActive(true);
             playerAnimator.SetTrigger(PLAYER_WIN_ANIM);
             teacherAnimator.SetTrigger(TEACHER_WIN_ANIM);
             resultAudioSource.PlayOneShot(winSound);
