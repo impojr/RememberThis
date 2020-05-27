@@ -40,20 +40,6 @@ public class GameManager : MonoBehaviour
     public Text resultText;
     public GameObject resultScreen;
 
-    private static string PLAYER_IDLE_ANIM = "Idle";
-    private static string PLAYER_THINKING_ANIM = "Thinking";
-    private static string PLAYER_UP_ANIM = "Up";
-    private static string PLAYER_DOWN_ANIM = "Down";
-    private static string PLAYER_LEFT_ANIM = "Left";
-    private static string PLAYER_RIGHT_ANIM = "Right";
-    private static string PLAYER_WIN_ANIM = "Win";
-    private static string PLAYER_LOSE_ANIM = "Lose";
-
-    private static string TEACHER_IDLE_ANIM = "Idle";
-    private static string TEACHER_THINKING_ANIM = "Thinking";
-    private static string TEACHER_WIN_ANIM = "Win";
-    private static string TEACHER_LOSE_ANIM = "Lose";
-
     private bool recieveInput = false;
     private int numberOfButtonsToPress = 0;
     private List<KeyCode> buttonsPressed;
@@ -114,8 +100,8 @@ public class GameManager : MonoBehaviour
         if (buttons < 0 || buttons > arrows.Length)
             throw new ArgumentOutOfRangeException(nameof(buttons) + " must be within length of " + nameof(arrows));
 
-        teacherAnimator.SetTrigger(TEACHER_THINKING_ANIM);
-        playerAnimator.SetTrigger(PLAYER_THINKING_ANIM);
+        teacherAnimator.SetTrigger(Constants.TEACHER_THINKING_ANIM);
+        playerAnimator.SetTrigger(Constants.PLAYER_THINKING_ANIM);
 
         numberOfButtonsToPress = buttons;
         buttonsPressed = new List<KeyCode>();
@@ -168,8 +154,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
-        teacherAnimator.SetTrigger(TEACHER_IDLE_ANIM);
+        playerAnimator.SetTrigger(Constants.PLAYER_IDLE_ANIM);
+        teacherAnimator.SetTrigger(Constants.TEACHER_IDLE_ANIM);
         recieveInput = false;
         HidePressedIndicators();
         chalkboardText.gameObject.SetActive(false);
@@ -226,43 +212,44 @@ public class GameManager : MonoBehaviour
     {
         if (health <= 0)
         {
-            resultText.text = "YOU LOSE!";
-            resultScreen.SetActive(true);
-            playerAnimator.SetTrigger(PLAYER_LOSE_ANIM);
-            teacherAnimator.SetTrigger(TEACHER_LOSE_ANIM);
-            resultAudioSource.PlayOneShot(loseSound);
+            TriggerResultScreen("YOU LOSE!", Constants.PLAYER_LOSE_ANIM, Constants.TEACHER_LOSE_ANIM, loseSound);
         } else if (currentWave > outroTimelines.Length)
         {
-            resultText.text = "YOU WIN!";
-            resultScreen.SetActive(true);
-            playerAnimator.SetTrigger(PLAYER_WIN_ANIM);
-            teacherAnimator.SetTrigger(TEACHER_WIN_ANIM);
-            resultAudioSource.PlayOneShot(winSound);
+            TriggerResultScreen("YOU WIN!", Constants.PLAYER_WIN_ANIM, Constants.TEACHER_WIN_ANIM, winSound);
         } else
         {
-            playerAnimator.SetTrigger(PLAYER_IDLE_ANIM);
+            playerAnimator.SetTrigger(Constants.PLAYER_IDLE_ANIM);
             movementNumber = 0;
             introTimeline.Play();
         }
+    }
+
+    public void TriggerResultScreen(string resultString, string playerAnimation, string teacherAnimation, AudioClip sound)
+    {
+        resultText.text = resultString;
+        resultScreen.SetActive(true);
+        playerAnimator.SetTrigger(playerAnimation);
+        teacherAnimator.SetTrigger(teacherAnimation);
+        resultAudioSource.PlayOneShot(sound);
     }
 
     public void TriggerPlayerMovementAnimation()
     {
         if (movementNumber >= buttonsPressed.Count)
         {
-            playerAnimator.SetTrigger(PLAYER_THINKING_ANIM);
+            playerAnimator.SetTrigger(Constants.PLAYER_THINKING_ANIM);
         } else if (buttonsPressed[movementNumber] == KeyCode.UpArrow)
         {
-            playerAnimator.SetTrigger(PLAYER_UP_ANIM);
+            playerAnimator.SetTrigger(Constants.PLAYER_UP_ANIM);
         } else if (buttonsPressed[movementNumber] == KeyCode.DownArrow)
         {
-            playerAnimator.SetTrigger(PLAYER_DOWN_ANIM);
+            playerAnimator.SetTrigger(Constants.PLAYER_DOWN_ANIM);
         } else if (buttonsPressed[movementNumber] == KeyCode.RightArrow)
         {
-            playerAnimator.SetTrigger(PLAYER_RIGHT_ANIM);
+            playerAnimator.SetTrigger(Constants.PLAYER_RIGHT_ANIM);
         } else if (buttonsPressed[movementNumber] == KeyCode.LeftArrow)
         {
-            playerAnimator.SetTrigger(PLAYER_LEFT_ANIM);
+            playerAnimator.SetTrigger(Constants.PLAYER_LEFT_ANIM);
         }
     }
 }
